@@ -11,5 +11,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://www.songnail.com/sitemap.xml
-Sitemap: https://www.songnail.com/baidusitemap.xml
+Sitemap: https://gg.songnail.com/sitemap.xml
+Sitemap: https://gg.songnail.com/baidusitemap.xml
