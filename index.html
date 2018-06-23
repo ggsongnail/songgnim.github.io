@@ -29,22 +29,7 @@
 
   
   <!-- baidu webmaster push -->
-  <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-  <!-- 新 API 方法， 十分简洁 -->
-<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
 </head>
 <body class="home blog custom-background custom-font-enabled single-author">
   <div id="page" class="hfeed site">
@@ -54,8 +39,8 @@
         <a href="/" title="Hello-果果" rel="home">Hello-果果</a>
       </h1>
       
-        
-        <h2 class="site-description" id="hitokoto"></h2>
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
       
     </hgroup>
 
@@ -97,17 +82,17 @@
 
     <div class="entry-content">
       
-        <p>Redis官网链接 <a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a> </p>
+        <p>Redis官网链接 <a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a>  </p>
 <h3 id="一、下载安装Redis"><a href="#一、下载安装Redis" class="headerlink" title="一、下载安装Redis"></a>一、下载安装Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/download</span><br><span class="line">wget http://download.redis.io/releases/redis-4.0.9.tar.gz</span><br><span class="line">tar -zxvf redis-4.0.9.tar.gz -C /usr/local/redis</span><br><span class="line">cd /usr/local/redis</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 <h3 id="二、配置和初始化Redis"><a href="#二、配置和初始化Redis" class="headerlink" title="二、配置和初始化Redis"></a>二、配置和初始化Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis]# cd utils/</span><br><span class="line">[root@localhost utils]# ./install_server.sh </span><br><span class="line">Welcome to the redis service installer</span><br><span class="line">This script will help you easily set up a running redis server</span><br><span class="line"></span><br><span class="line">Please select the redis port for this instance: [6379] 3680</span><br><span class="line">Please select the redis config file name [/etc/redis/3680.conf] </span><br><span class="line">Selected default - /etc/redis/3680.conf</span><br><span class="line">Please select the redis log file name [/var/log/redis_3680.log] </span><br><span class="line">Selected default - /var/log/redis_3680.log</span><br><span class="line">Please select the data directory for this instance [/var/lib/redis/3680] </span><br><span class="line">Selected default - /var/lib/redis/3680</span><br><span class="line">Please select the redis executable path [/usr/bin/redis-server] </span><br><span class="line">Selected config:</span><br><span class="line">Port           : 3680</span><br><span class="line">Config file    : /etc/redis/3680.conf</span><br><span class="line">Log file       : /var/log/redis_3680.log</span><br><span class="line">Data dir       : /var/lib/redis/3680</span><br><span class="line">Executable     : /usr/bin/redis-server</span><br><span class="line">Cli Executable : /usr/bin/redis-cli</span><br><span class="line">Is this ok? Then press ENTER to go on or Ctrl-C to abort.</span><br><span class="line">Copied /tmp/3680.conf =&gt; /etc/init.d/redis_3680</span><br><span class="line">Installing service...</span><br><span class="line">Successfully added to chkconfig!</span><br><span class="line">Successfully added to runlevels 345!</span><br><span class="line">Starting Redis server...</span><br><span class="line">Installation successful!</span><br></pre></td></tr></table></figure>
 <h3 id="三、设置密码"><a href="#三、设置密码" class="headerlink" title="三、设置密码"></a>三、设置密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost utils]# vi /etc/redis/3680.conf</span><br><span class="line">requirepass ggsongnail</span><br><span class="line">bind 127.0.0.1 或者 bind 0.0.0.0</span><br></pre></td></tr></table></figure>
-<h3 id="四、常规启动"><a href="#四、常规启动" class="headerlink" title="四、常规启动"></a>四、常规启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ln /usr/<span class="built_in">local</span>/redis/src/redis-cli /usr/bin/redis-cli</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ln /etc/init.d/redis_3680 /usr/bin/redis-server</span></span><br></pre></td></tr></table></figure>
+<h3 id="四、常规启动"><a href="#四、常规启动" class="headerlink" title="四、常规启动"></a>四、常规启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln /usr/local/redis/src/redis-cli /usr/bin/redis-cli</span><br><span class="line"><span class="meta">$</span> ln /etc/init.d/redis_3680 /usr/bin/redis-server</span><br></pre></td></tr></table></figure>
 <h3 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h3><ul>
 <li><p>/bin/sh: cc: command not found﻿</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决方法 安装gcc：</span><br><span class="line">yum install -y gcc</span><br><span class="line">查看gcc是否安装成功：</span><br><span class="line">rpm -qa|grep gcc</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>[root@localhost utils]# redis-server stop<br>Stopping …<br>(error) NOAUTH Authentication required.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">解决方法 修改/etc/init.d/redis_3680</span><br><span class="line">增加</span><br><span class="line"><span class="meta">$</span><span class="bash">CLIEXEC -a <span class="string">"ggsongnail"</span> -p <span class="variable">$REDISPORT</span> shutdown</span></span><br><span class="line">如下所示</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Configurations injected by install_server below....</span></span><br><span class="line">EXEC=/usr/bin/redis-server</span><br><span class="line">CLIEXEC=/usr/bin/redis-cli</span><br><span class="line">PIDFILE=/var/run/redis_3680.pid</span><br><span class="line">CONF="/etc/redis/3680.conf"</span><br><span class="line">REDISPORT="3680"</span><br><span class="line"><span class="meta">$</span><span class="bash">CLIEXEC -a <span class="string">"ggsongnail"</span> -p <span class="variable">$REDISPORT</span> shutdown</span></span><br><span class="line"></span><br><span class="line">然后再次执行</span><br><span class="line">[root@localhost utils]# redis-server stop</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Stopping ...</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Redis stopped</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">解决方法 修改/etc/init.d/redis_3680</span><br><span class="line">增加</span><br><span class="line"><span class="meta">$</span>CLIEXEC -a "ggsongnail" -p $REDISPORT shutdown</span><br><span class="line">如下所示</span><br><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"><span class="meta">#</span>Configurations injected by install_server below....</span><br><span class="line">EXEC=/usr/bin/redis-server</span><br><span class="line">CLIEXEC=/usr/bin/redis-cli</span><br><span class="line">PIDFILE=/var/run/redis_3680.pid</span><br><span class="line">CONF="/etc/redis/3680.conf"</span><br><span class="line">REDISPORT="3680"</span><br><span class="line"><span class="meta">$</span>CLIEXEC -a "ggsongnail" -p $REDISPORT shutdown</span><br><span class="line"></span><br><span class="line">然后再次执行</span><br><span class="line">[root@localhost utils]# redis-server stop</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Stopping ...</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Redis stopped</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -439,7 +424,7 @@
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
 </footer>
-
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 <script src="/js/jquery-2.0.3.min.js"></script>
 
