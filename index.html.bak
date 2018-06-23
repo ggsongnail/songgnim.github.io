@@ -29,7 +29,7 @@
 
   
   <!-- baidu webmaster push -->
-  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+  <script src='//zz.bdstatic.com/linksubmit/push.js'></script>
   <!-- 新 API 方法， 十分简洁 -->
 <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
 </head>
