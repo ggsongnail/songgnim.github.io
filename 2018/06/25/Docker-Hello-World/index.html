@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="一、安装docker1234yum install gcc make perlyum install kernel-devel-$(uname -r)rpm -qa kernel\*yum install -y docker
+二、镜像加速通过 Docker 官方镜像加速，中国区用户能够快速访问最流行" />
+  
 
   
   
@@ -11,16 +14,20 @@
   
   
   
-  <title>Docker Hello World | Hello-果果</title>
+  <title>Docker 入门与部署微服务 | Hello-果果</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Docker Hello World">
+  <meta name="description" content="一、安装docker1234yum install gcc make perlyum install kernel-devel-$(uname -r)rpm -qa kernel\*yum install -y docker 二、镜像加速通过 Docker 官方镜像加速，中国区用户能够快速访问最流行的 Docker 镜像。该镜像托管于中国大陆，本地用户现在将会享受到更快的下载速度和更强的稳定性，从">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 入门与部署微服务">
 <meta property="og:url" content="https://www.songnail.com/2018/06/25/Docker-Hello-World/index.html">
 <meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="一、安装docker1234yum install gcc make perlyum install kernel-devel-$(uname -r)rpm -qa kernel\*yum install -y docker 二、镜像加速通过 Docker 官方镜像加速，中国区用户能够快速访问最流行的 Docker 镜像。该镜像托管于中国大陆，本地用户现在将会享受到更快的下载速度和更强的稳定性，从">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-25T12:14:01.876Z">
+<meta property="og:updated_time" content="2018-07-17T10:21:25.334Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker Hello World">
+<meta name="twitter:title" content="Docker 入门与部署微服务">
+<meta name="twitter:description" content="一、安装docker1234yum install gcc make perlyum install kernel-devel-$(uname -r)rpm -qa kernel\*yum install -y docker 二、镜像加速通过 Docker 官方镜像加速，中国区用户能够快速访问最流行的 Docker 镜像。该镜像托管于中国大陆，本地用户现在将会享受到更快的下载速度和更强的稳定性，从">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -92,7 +99,7 @@
         
   
     <h1 class="entry-title article-title">
-      Docker Hello World
+      Docker 入门与部署微服务
     </h1>
   
 
@@ -105,7 +112,12 @@
 
     <div class="entry-content">
       
-        
+        <h3 id="一、安装docker"><a href="#一、安装docker" class="headerlink" title="一、安装docker"></a>一、安装docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc make perl</span><br><span class="line">yum install kernel-devel-$(uname -r)</span><br><span class="line">rpm -qa kernel\*</span><br><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure>
+<h3 id="二、镜像加速"><a href="#二、镜像加速" class="headerlink" title="二、镜像加速"></a>二、镜像加速</h3><p>通过 Docker 官方镜像加速，中国区用户能够快速访问最流行的 Docker 镜像。该镜像托管于中国大陆，本地用户现在将会享受到更快的下载速度和更强的稳定性，从而能够更敏捷地开发和交付 Docker 化应用。 </p>
+<p>为了永久性保留更改，您可以修改 <code>/etc/docker/daemon.json</code> 文件并添加上 registry-mirrors 键值。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、安装Mysql"><a href="#三、安装Mysql" class="headerlink" title="三、安装Mysql"></a>三、安装Mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># 搜索mysql镜像</span><br><span class="line">docker search mysql </span><br><span class="line"># 下载mysql镜像，默认最新版本</span><br><span class="line">docker pull mysql </span><br><span class="line"># 运行镜像，设置root账号初始密码（123123），映射本地宿主机端口3306到Docker端口3306。如果需要挂载本地数据盘用第二条语句</span><br><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123123 -d mysql</span><br><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123123 -d mysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql  </span><br><span class="line"># 查看容器运行情况</span><br><span class="line">docker ps -a</span><br><span class="line"># 进入容器并在容器内登录mysql</span><br><span class="line">[root@localhost ~]# docker exec -it mysql bash</span><br><span class="line">root@05eb491f64ad:/# mysql -uroot -p123123</span><br><span class="line"># 查看mysql用户信息</span><br><span class="line">mysql&gt; select host,user,plugin,authentication_string from mysql.user;</span><br><span class="line">+-----------+------------------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">| host      | user             | plugin                | authentication_string                                                  |</span><br><span class="line">+-----------+------------------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">| %         | root             | caching_sha2_password | $A$005$^b:&gt;AF2::j6|JeMayO.xJ733t/R0YkF8BuGVbGPx5xzOrmtQW3tkEQlfCz51 |</span><br><span class="line">| localhost | mysql.infoschema | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| localhost | mysql.session    | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| localhost | mysql.sys        | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE                              |</span><br><span class="line">| localhost | root             | caching_sha2_password | $A$005$\4#)P]tpo2f </span><br><span class="line">                                                                            L&apos;[Ka6ivzqtt7KtNXB1I3gl.ndOCUu3sWpsXD3Xo9qJas4 |</span><br><span class="line">+-----------+------------------+-----------------------+------------------------------------------------------------------------+</span><br><span class="line">5 rows in set (0.08 sec)</span><br><span class="line"># 设置root用户使用 mysql_native_password Plugin并设置登录密码</span><br><span class="line">mysql&gt; ALTER user &apos;root&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;123123&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">#使用navicat登录，成功！</span><br></pre></td></tr></table></figure>
+<h3 id="四、"><a href="#四、" class="headerlink" title="四、"></a>四、</h3>
       
     </div><!-- .entry-content -->
 
@@ -117,6 +129,9 @@
 </a>
     
     
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
     </footer>
 </article>
 
@@ -163,7 +178,7 @@
           </li>
         
           <li>
-            <a href="/2018/06/25/Docker-Hello-World/">Docker Hello World</a>
+            <a href="/2018/06/25/Docker-Hello-World/">Docker 入门与部署微服务</a>
           </li>
         
           <li>
@@ -187,7 +202,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -196,7 +211,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
     </div>
   </aside>
 
