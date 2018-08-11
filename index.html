@@ -390,7 +390,10 @@
 <h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install docker-ce</span><br></pre></td></tr></table></figure>
 <p>可能由于网络原因你会遇到</p>
 <p><em>GPG key retrieval failed: [Errno 12] Timeout on <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a>: (28, ‘Operation timed out after 30010 milliseconds with 0 out of 0 bytes received’)</em> </p>
-<p>这样的错误，可将/etc/yum.repos.d/docker-ce.repo里面的<a href="https://download.docker.com/linux/centos全局替换成https://mirrors.ustc.edu.cn/docker-ce/linux/centos" target="_blank" rel="noopener">https://download.docker.com/linux/centos全局替换成https://mirrors.ustc.edu.cn/docker-ce/linux/centos</a> </p>
+<p>这样的错误，可将/etc/yum.repos.d/docker-ce.repo里面的</p>
+<p><a href="https://download.docker.com/linux/centos" target="_blank" rel="noopener">https://download.docker.com/linux/centos</a></p>
+<p>全局替换成</p>
+<p><a href="https://mirrors.ustc.edu.cn/docker-ce/linux/centos" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/docker-ce/linux/centos</a> </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vi /etc/yum.repos.d/docker-ce.repo </span><br><span class="line">:%s/https:\/\/download.docker.com\/linux\/centos/https:\/\/mirrors.ustc.edu.cn\/docker-ce\/linux\/centos/g</span><br><span class="line">[root@localhost ~]# yum install docker-ce ##安装docker</span><br><span class="line">[root@localhost ~]# systemctl start docker ##启动docker</span><br><span class="line">[root@localhost ~]# systemctl status docker ##查看启动状态</span><br></pre></td></tr></table></figure>
 
       
