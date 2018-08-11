@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="额外知识点：1.javap -c User.class查看编译后的文件2.常量折叠：由于final变量的值不会被改变，一些这样的值有涉及运算的在编译期间就处理了3.泛型又称类型检验，编译器负责检查程序中的类型正确性，把使用的泛型代码翻译或者重写成可以执行在JVM的非泛型代码。这个技术叫做类型擦除。通" />
+  
 
   
   
@@ -11,15 +13,19 @@
   
   
   
-  <title>Tag: Linux | Hello-果果</title>
+  <title>Java编译时和运行时 | Hello-果果</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hello-果果">
-<meta property="og:url" content="https://www.songnail.com/tags/Linux/index.html">
+  <meta name="description" content="额外知识点：1.javap -c User.class查看编译后的文件2.常量折叠：由于final变量的值不会被改变，一些这样的值有涉及运算的在编译期间就处理了3.泛型又称类型检验，编译器负责检查程序中的类型正确性，把使用的泛型代码翻译或者重写成可以执行在JVM的非泛型代码。这个技术叫做类型擦除。通俗来讲就是编译器会擦除所有在尖括号里的类型信息，保证版本的兼容性和类型安全。比如List myLis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编译时和运行时">
+<meta property="og:url" content="https://www.songnail.com/2018/07/20/Java编译时和运行时/index.html">
 <meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="额外知识点：1.javap -c User.class查看编译后的文件2.常量折叠：由于final变量的值不会被改变，一些这样的值有涉及运算的在编译期间就处理了3.泛型又称类型检验，编译器负责检查程序中的类型正确性，把使用的泛型代码翻译或者重写成可以执行在JVM的非泛型代码。这个技术叫做类型擦除。通俗来讲就是编译器会擦除所有在尖括号里的类型信息，保证版本的兼容性和类型安全。比如List myLis">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-20T05:09:23.277Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello-果果">
+<meta name="twitter:title" content="Java编译时和运行时">
+<meta name="twitter:description" content="额外知识点：1.javap -c User.class查看编译后的文件2.常量折叠：由于final变量的值不会被改变，一些这样的值有涉及运算的在编译期间就处理了3.泛型又称类型检验，编译器负责检查程序中的类型正确性，把使用的泛型代码翻译或者重写成可以执行在JVM的非泛型代码。这个技术叫做类型擦除。通俗来讲就是编译器会擦除所有在尖括号里的类型信息，保证版本的兼容性和类型安全。比如List myLis">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -83,46 +89,60 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Java编译时和运行时" class="post-Java编译时和运行时 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2018/06/23/安装Redis/">安装Redis</a>
+    <h1 class="entry-title article-title">
+      Java编译时和运行时
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2018/06/23/安装Redis/">
-    <time datetime="2018-06-23T07:08:44.000Z" class="entry-date">
-        2018-06-23
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/07/20/Java编译时和运行时/" data-id="cjkpigynx0001q4tx3zaes8t5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>额外知识点：<br>1.javap -c User.class查看编译后的文件<br>2.常量折叠：由于final变量的值不会被改变，一些这样的值有涉及运算的在编译期间就处理了<br>3.泛型又称类型检验，编译器负责检查程序中的类型正确性，把使用的泛型代码翻译或者重写成可以执行在JVM的非泛型代码。这个技术叫做类型擦除。通俗来讲就是编译器会擦除所有在尖括号里的类型信息，保证版本的兼容性和类型安全。比如<br>List<string> myList = new ArrayList<string>(10);<br>编译后<br>List myList = new ArrayList(10);<br>4.方法重载（参数不同，方法名相同）发生在编译时的。继承的方法重写（参数方法名都相同）是发生在运行时<br>5.泛型与多态的冲突，是使用Java中的Bridge设计模式解决的</string></string></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/07/20/Java编译时和运行时/">
+    <time datetime="2018-07-20T05:08:36.000Z" class="entry-date">
+        2018-07-20
     </time>
 </a>
     
     
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
     </footer>
 </article>
-  
-  
-    </div></section>
-  
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/08/07/hello-world/" rel="prev"><span class="meta-nav">←</span> Hello World</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/07/19/Spring-AOP/" rel="next">Spring AOP <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
