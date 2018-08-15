@@ -24,7 +24,7 @@ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版�
 <meta property="og:site_name" content="Hello-果果">
 <meta property="og:description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号CentOS L">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-11T14:28:51.831Z">
+<meta property="og:updated_time" content="2018-08-14T14:07:18.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7安装Docker CE">
 <meta name="twitter:description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号CentOS L">
@@ -131,6 +131,9 @@ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版�
 <p>全局替换成</p>
 <p><a href="https://mirrors.ustc.edu.cn/docker-ce/linux/centos" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/docker-ce/linux/centos</a> </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vi /etc/yum.repos.d/docker-ce.repo </span><br><span class="line">:%s/https:\/\/download.docker.com\/linux\/centos/https:\/\/mirrors.ustc.edu.cn\/docker-ce\/linux\/centos/g</span><br><span class="line">[root@localhost ~]# yum install docker-ce ##安装docker</span><br><span class="line">[root@localhost ~]# systemctl start docker ##启动docker</span><br><span class="line">[root@localhost ~]# systemctl status docker ##查看启动状态</span><br></pre></td></tr></table></figure>
+<h3 id="配置阿里云镜像加速器"><a href="#配置阿里云镜像加速器" class="headerlink" title="配置阿里云镜像加速器"></a>配置阿里云镜像加速器</h3><p>访问网址<a href="https://cr.console.aliyun.com/cn-qingdao/mirrors" target="_blank" rel="noopener">https://cr.console.aliyun.com/cn-qingdao/mirrors</a></p>
+<p>账号登陆即可拥有你的镜像加速器地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">添加如下内容</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;您的镜像加速器地址&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div><!-- .entry-content -->
@@ -188,7 +191,7 @@ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版�
       <ul>
         
           <li>
-            <a href="/2018/08/07/组装电脑/">组装电脑</a>
+            <a href="/2018/08/07/英文的五种常见句式/">英文的五种句式</a>
           </li>
         
           <li>
@@ -216,7 +219,7 @@ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版�
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/朝花夕拾/">朝花夕拾</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -225,7 +228,7 @@ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版�
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/朝花夕拾/" style="font-size: 10px;">朝花夕拾</a>
     </div>
   </aside>
 
