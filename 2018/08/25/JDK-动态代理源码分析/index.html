@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="在Java中如果要你对某个类的某个方法进行增强(就好比你唱歌的时候给你来点伴奏)你会怎么做？比如对下面这个StarSinger的方法进行伴奏加强
+12345public class StarSinger &amp;#123;    public void sing()&amp;#123;        System" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>JDK 动态代理源码分析 | Hello-果果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在Java中如果要你对某个类的某个方法进行增强(就好比你唱歌的时候给你来点伴奏)你会怎么做？比如对下面这个StarSinger的方法进行伴奏加强 12345public class StarSinger &amp;#123;    public void sing()&amp;#123;        System.out.println(&quot;动情歌唱一曲&quot;);    &amp;#125;&amp;#125; Round One程">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK 动态代理源码分析">
+<meta property="og:url" content="https://www.songnail.com/2018/08/25/JDK-动态代理源码分析/index.html">
+<meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="在Java中如果要你对某个类的某个方法进行增强(就好比你唱歌的时候给你来点伴奏)你会怎么做？比如对下面这个StarSinger的方法进行伴奏加强 12345public class StarSinger &amp;#123;    public void sing()&amp;#123;        System.out.println(&quot;动情歌唱一曲&quot;);    &amp;#125;&amp;#125; Round One程">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-25T16:36:03.097Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JDK 动态代理源码分析">
+<meta name="twitter:description" content="在Java中如果要你对某个类的某个方法进行增强(就好比你唱歌的时候给你来点伴奏)你会怎么做？比如对下面这个StarSinger的方法进行伴奏加强 12345public class StarSinger &amp;#123;    public void sing()&amp;#123;        System.out.println(&quot;动情歌唱一曲&quot;);    &amp;#125;&amp;#125; Round One程">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+
+  <script>
+(function(){
+		var canonicalURL, curProtocol;
+		//Get the <link> tag
+		var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+		//Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+	    //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+    	!function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+  
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hello-果果" rel="home">Hello-果果</a>
+      </h1>
+      
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+        <h2 class="site-description" id="hitokoto"></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-JDK-动态代理源码分析" class="post-JDK-动态代理源码分析 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      JDK 动态代理源码分析
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/JDK-动态代理源码分析/" data-id="cjl9nezcl0003m0v2erl51mkq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在Java中如果要你对某个类的某个方法进行增强(就好比你唱歌的时候给你来点伴奏)你会怎么做？比如对下面这个StarSinger的方法进行伴奏加强</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StarSinger</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sing</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"动情歌唱一曲"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Round-One"><a href="#Round-One" class="headerlink" title="Round One"></a>Round One</h3><p>程序员表示我会用一个类来包装增强</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnhanceSinger</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceStarSing</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StarSinger starSinger = <span class="keyword">new</span> StarSinger();</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        starSinger.sing();</span><br><span class="line">        System.out.println(<span class="string">"观众掌声"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到目前为止好像没毛病，但是现在教师、学生、程序员等各行各业的灵魂歌者也要在唱歌的时候来点伴奏咋办？程序员表示可以继续在EnhanceSinger类里对这些歌唱者进行伴奏</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnhanceSinger</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceStarSing</span><span class="params">()</span></span>&#123;\\增强明星演唱</span><br><span class="line">        StarSinger starSinger = <span class="keyword">new</span> StarSinger();</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        starSinger.sing();</span><br><span class="line">        System.out.println(<span class="string">"观众掌声"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceProgrammerSing</span><span class="params">()</span></span>&#123;\\程序员演唱</span><br><span class="line">        ProgrammerSinger programmerSinger = <span class="keyword">new</span> ProgrammerSinger();</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        programmerSinger.sing();</span><br><span class="line">        System.out.println(<span class="string">"观众送上了砖头"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    、、、、</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样每多一个人演唱，就要加多一个方法实在太笨拙，因为往后要改成其他伴奏，岂不是每个增强的方法都要去修改？程序员表示压力很大，仔细思考后有了下一种方案</p>
+<h3 id="Round-Two"><a href="#Round-Two" class="headerlink" title="Round Two"></a>Round Two</h3><p>先定义一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Singer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sing</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>歌唱者都继承这个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StarSinger</span> <span class="keyword">implements</span> <span class="title">Singer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sing</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"明星在发布会动情歌唱一曲"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProgrammerSinger</span> <span class="keyword">implements</span> <span class="title">Singer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sing</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"程序员在失恋后高歌一曲"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来一个升级版的增强类<span style="color:red">EnhanceSingerV2</span></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnhanceSingerV2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceSing</span><span class="params">(Singer singer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        singer.sing();</span><br><span class="line">        System.out.println(<span class="string">"观众被迫鼓掌"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用的时候可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEnhanceSingerV2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StarSinger starSinger = <span class="keyword">new</span> StarSinger();</span><br><span class="line">        ProgrammerSinger programmerSinger = <span class="keyword">new</span> ProgrammerSinger();</span><br><span class="line">        EnhanceSingerV2 enhanceSingerV2 = <span class="keyword">new</span> EnhanceSingerV2();</span><br><span class="line">        enhanceSingerV2.enhanceSing(starSinger);<span class="comment">//明星演唱被加强</span></span><br><span class="line">        enhanceSingerV2.enhanceSing(programmerSinger);<span class="comment">//程序员演唱被加强</span></span><br><span class="line">        、、、、</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>似乎有了比较大的进步，这个方案江湖人称<strong>静态代理</strong>，EnhanceSingerV2这个类我们称其为代理类。现在如果要变其他伴奏只要修改EnhanceSingerV2的enhanceSing方法即可，不用像第一回合的方案那样一个一个方法去修改。</p>
+<p>目前来看Round 2的方案比较给力了，每次要换伴奏时改一处地方便可以达到效果，这样一来就有更多的时间和妹子聊聊天了。可是天有不测风云，一天广场舞大妈说她在跳舞的时候也想来段伴奏，程序员听了这还不简单，依葫芦画瓢再定义一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Dancer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dance</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大妈去实现它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SquareAuntDancer</span> <span class="keyword">implements</span> <span class="title">Dancer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"大妈翩翩起舞"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>反正在<strong>EnhanceSingerV2</strong>代理下都有加伴奏这个功能，程序员为了偷懒不顾招牌的名字，公然把代码写在此处</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnhanceSingerV2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceSing</span><span class="params">(Singer singer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        singer.sing();</span><br><span class="line">        System.out.println(<span class="string">"观众被迫鼓掌"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceDance</span><span class="params">(Dancer dancer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        dancer.dance();</span><br><span class="line">        System.out.println(<span class="string">"群众被迫离场"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    、、、、</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEnhanceSingerV2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singer starSinger = <span class="keyword">new</span> StarSinger();</span><br><span class="line">        Singer programmerSinger = <span class="keyword">new</span> ProgrammerSinger();</span><br><span class="line">        EnhanceSingerV2 enhanceSingerV2 = <span class="keyword">new</span> EnhanceSingerV2();</span><br><span class="line">        enhanceSingerV2.enhanceSing(starSinger);</span><br><span class="line">        enhanceSingerV2.enhanceSing(programmerSinger);</span><br><span class="line">        <span class="comment">//给大妈来点伴奏</span></span><br><span class="line">        Dancer squareAuntDancer = <span class="keyword">new</span> SquareAuntDancer();</span><br><span class="line">        enhanceSingerV2.enhanceDance(squareAuntDancer);</span><br><span class="line">        、、、、</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写完后程序员总觉的哪里不对劲，看着自己写的代码，突然菊花一紧，脑中闪道：“如果各行各业在工作时都要来点伴奏，杀猪的时候要伴奏，唱歌的离场也要伴奏，那上面的EnhanceSingerV2里的要写方法岂不是越来越多？”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnhanceSingerV2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceSing</span><span class="params">(Singer singer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        singer.sing();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceDance</span><span class="params">(Dancer dancer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        dancer.dance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//歌者离场</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceLeave</span><span class="params">(Singer singer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        singer.leave();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//屠夫开杀</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enhanceKill</span><span class="params">(Butcher butcher)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        butcher.kill();</span><br><span class="line">    &#125;</span><br><span class="line">    、、、、</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>”而且改伴奏又得一条一条的改，长期以往不仅身体被掏空，搞不好更会失去陪妹子的时间，到头来又是光棍一场“。程序员想了想，虽然可以将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;爵士鼓+吉他伴奏&quot;);</span><br></pre></td></tr></table></figure>
+<p>抽成公用的方法，但也无法避免EnhanceSingerV2越来越臃肿（<span style="color:red">比如Singer的其他方法要伴奏，或者其他新的类的方法要加伴奏都要维护这个类的代码，上面的歌者离场和屠夫开杀就是这样的情况</span>）</p>
+<h3 id="Round-Three"><a href="#Round-Three" class="headerlink" title="Round Three"></a>Round Three</h3><p>使用JDK动态代理</p>
+<p>自定义InvocationHadler</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObject</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.object = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"爵士鼓+吉他伴奏"</span>);</span><br><span class="line">        <span class="keyword">return</span> method.invoke(object,args);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>利用JDK生成的代理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJdkProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyInvocationHandler myInvocationHandler = <span class="keyword">new</span> MyInvocationHandler();</span><br><span class="line">        Butcher pigButcher = <span class="keyword">new</span> PigButcher();</span><br><span class="line">        Singer programmerSinger = <span class="keyword">new</span> ProgrammerSinger();</span><br><span class="line">        Singer starSinger = <span class="keyword">new</span> StarSinger();</span><br><span class="line">        Dancer squareAuntDancer = <span class="keyword">new</span> SquareAuntDancer();</span><br><span class="line">        List&lt;Object&gt; objects = Arrays.asList(pigButcher,programmerSinger,starSinger,squareAuntDancer);</span><br><span class="line">        objects.forEach(v-&gt;&#123;</span><br><span class="line">            myInvocationHandler.setObject(v);</span><br><span class="line">            Object clz = Proxy.newProxyInstance(v.getClass().getInterfaces()[<span class="number">0</span>].getClassLoader(),v.getClass().getInterfaces(),myInvocationHandler);</span><br><span class="line">            Arrays.asList(clz.getClass().getDeclaredMethods()).forEach(m-&gt;&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(m.getReturnType().getName().equals(<span class="string">"void"</span>))&#123;</span><br><span class="line">                        m.invoke(clz,<span class="keyword">null</span>);</span><br><span class="line">                        System.out.println(<span class="string">"===============华丽的分割线=============="</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/25/JDK-动态代理源码分析/">
+    <time datetime="2018-08-25T12:28:04.000Z" class="entry-date">
+        2018-08-25
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/08/25/JVM探秘/" rel="prev"><span class="meta-nav">←</span> JVM探秘</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/08/25/CentOS7安装Docker-CE/" rel="next">CentOS7安装Docker CE <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/JDK-动态代理源码分析/">JDK 动态代理源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/CentOS7安装Docker-CE/">CentOS7安装Docker CE</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/Java编译时和运行时/">Java编译时和运行时</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 songnail
+    All rights reserved.</p>
+    <p>Powered by <a href="https//gg.songnail.com" target="_blank">Super果果</a></p>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

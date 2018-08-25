@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/
+OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost " />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>CentOS7安装Docker CE | Hello-果果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号CentOS L">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7安装Docker CE">
+<meta property="og:url" content="https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/index.html">
+<meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号CentOS L">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-25T11:26:58.384Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7安装Docker CE">
+<meta name="twitter:description" content="官网https://docs.docker.com/install/linux/docker-ce/centos/ OS版本要求123456[root@localhost ~]# uname -r ##查询操作系统内核版本信息3.10.0-514.el7.x86_64[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号CentOS L">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+
+  <script>
+(function(){
+		var canonicalURL, curProtocol;
+		//Get the <link> tag
+		var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+		//Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+	    //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+    	!function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+  
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hello-果果" rel="home">Hello-果果</a>
+      </h1>
+      
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+        <h2 class="site-description" id="hitokoto"></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-CentOS7安装Docker-CE" class="post-CentOS7安装Docker-CE post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      CentOS7安装Docker CE
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/" data-id="cjl9nezcf0000m0v2qurbobrl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h3><p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+<h3 id="OS版本要求"><a href="#OS版本要求" class="headerlink" title="OS版本要求"></a>OS版本要求</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# uname -r ##查询操作系统内核版本信息</span><br><span class="line">3.10.0-514.el7.x86_64</span><br><span class="line">[root@localhost ~]# cat /etc/centos-release ##查看CentOS的版本号</span><br><span class="line">CentOS Linux release 7.3.1611 (Core) </span><br><span class="line">[root@localhost ~]# getconf LONG_BIT ##查看系统操作位数</span><br><span class="line">64</span><br></pre></td></tr></table></figure>
+<p>安装Docker CE需要maintained version 的centos7，Archived versions 的不会支持</p>
+<h3 id="卸载旧版本Docker"><a href="#卸载旧版本Docker" class="headerlink" title="卸载旧版本Docker"></a>卸载旧版本Docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<p>如果你之前安装过Docker请 执行这一步骤。之前的 images, containers, volumes,networks 会被保留在/var/lib/docker/</p>
+<h3 id="Set-Up-The-Docker-Repository"><a href="#Set-Up-The-Docker-Repository" class="headerlink" title="Set Up The Docker Repository"></a>Set Up The Docker Repository</h3><p>1、安装必要的packages</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+<p>2、建立稳定的repository</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">adding repo from: https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo</span><br><span class="line">repo saved to /etc/yum.repos.d/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>3、Enable the <strong>edge</strong> and <strong>test</strong> repositories</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum-config-manager --enable docker-ce-edge</span><br><span class="line">[root@localhost ~]# yum-config-manager --enable docker-ce-test</span><br></pre></td></tr></table></figure>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install docker-ce</span><br></pre></td></tr></table></figure>
+<p>可能由于网络原因你会遇到</p>
+<p><em>GPG key retrieval failed: [Errno 12] Timeout on <a href="https://download.docker.com/linux/centos/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/centos/gpg</a>: (28, ‘Operation timed out after 30010 milliseconds with 0 out of 0 bytes received’)</em></p>
+<p>这样的错误，可将/etc/yum.repos.d/docker-ce.repo里面的</p>
+<p><a href="https://download.docker.com/linux/centos" target="_blank" rel="noopener">https://download.docker.com/linux/centos</a></p>
+<p>全局替换成</p>
+<p><a href="https://mirrors.ustc.edu.cn/docker-ce/linux/centos" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/docker-ce/linux/centos</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vi /etc/yum.repos.d/docker-ce.repo </span><br><span class="line">:%s/https:\/\/download.docker.com\/linux\/centos/https:\/\/mirrors.ustc.edu.cn\/docker-ce\/linux\/centos/g</span><br><span class="line">[root@localhost ~]# yum install docker-ce ##安装docker</span><br><span class="line">[root@localhost ~]# systemctl start docker ##启动docker</span><br><span class="line">[root@localhost ~]# systemctl status docker ##查看启动状态</span><br></pre></td></tr></table></figure>
+<h3 id="配置阿里云镜像加速器"><a href="#配置阿里云镜像加速器" class="headerlink" title="配置阿里云镜像加速器"></a>配置阿里云镜像加速器</h3><p>访问网址<a href="https://cr.console.aliyun.com/cn-qingdao/mirrors" target="_blank" rel="noopener">https://cr.console.aliyun.com/cn-qingdao/mirrors</a></p>
+<p>账号登陆即可拥有你的镜像加速器地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">添加如下内容</span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": ["您的镜像加速器地址"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/25/CentOS7安装Docker-CE/">
+    <time datetime="2018-08-25T11:25:19.000Z" class="entry-date">
+        2018-08-25
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/08/25/JDK-动态代理源码分析/" rel="prev"><span class="meta-nav">←</span> JDK 动态代理源码分析</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/08/25/hello-world/" rel="next">Hello World <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/JDK-动态代理源码分析/">JDK 动态代理源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/CentOS7安装Docker-CE/">CentOS7安装Docker CE</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/Java编译时和运行时/">Java编译时和运行时</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 songnail
+    All rights reserved.</p>
+    <p>Powered by <a href="https//gg.songnail.com" target="_blank">Super果果</a></p>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
