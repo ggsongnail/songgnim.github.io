@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样
+1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class." />
+  
 
   
   
@@ -11,15 +14,20 @@
   
   
   
-  <title>Tag: 前端 | Hello-果果</title>
+  <title>JDk动态代理源码解析 | Hello-果果</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hello-果果">
-<meta property="og:url" content="https://www.songnail.com/tags/前端/index.html">
+  <meta name="description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDk动态代理源码解析">
+<meta property="og:url" content="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/index.html">
 <meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-26T14:51:51.259Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello-果果">
+<meta name="twitter:title" content="JDk动态代理源码解析">
+<meta name="twitter:description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -83,46 +91,70 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-JDk动态代理源码解析" class="post-JDk动态代理源码解析 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2018/06/23/安装Nodejs/">安装Nodejs</a>
+    <h1 class="entry-title article-title">
+      JDk动态代理源码解析
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2018/06/23/安装Nodejs/">
-    <time datetime="2018-06-23T03:38:56.000Z" class="entry-date">
-        2018-06-23
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/" data-id="cjlaz32z00004zsv2r4ydfp39" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler(...);</span><br><span class="line">Class&lt;?&gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);</span><br><span class="line">Foo f = (Foo) proxyClass.getConstructor(InvocationHandler.class).</span><br><span class="line">                newInstance(handler);</span><br></pre></td></tr></table></figure>
+<p>或者更简单点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Foo f = (Foo) Proxy.newProxyInstance(Foo.class.getClassLoader(),</span><br><span class="line">                                     <span class="keyword">new</span> Class&lt;?&gt;[] &#123; Foo.class &#125;,</span><br><span class="line">                                     handler);</span><br></pre></td></tr></table></figure>
+<p>动态代理类(proxyClass)实在运行期间被创建的，想了解其创建过程首先我们来看Proxy的newProxyInstance方法</p>
+<p>我这里抽出这个方法关键的几个地方便于了解</p>
+<blockquote>
+<p>关键1：Class&lt;?&gt; cl = getProxyClass0(loader, intfs);</p>
+<p>这个方法是查找或者创建指定的代理类用的，这里的指定则是通过loader, intfs来决定的。</p>
+</blockquote>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/26/JDk动态代理源码解析/">
+    <time datetime="2018-08-26T14:16:15.000Z" class="entry-date">
+        2018-08-26
     </time>
 </a>
     
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li></ul>
 
     </footer>
 </article>
-  
-  
-    </div></section>
-  
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2018/08/25/JVM探秘/" rel="next">JVM探秘 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
