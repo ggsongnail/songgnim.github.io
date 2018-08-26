@@ -1,5 +1,5 @@
 https://www.songnail.com/2018/08/25/JVM探秘/
-https://www.songnail.com/2018/08/25/JDK-动态代理源码分析/
+https://www.songnail.com/2018/08/25/JDK-动态代理例子/
 https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/
 https://www.songnail.com/2018/08/25/hello-world/
 https://www.songnail.com/2018/07/20/Java编译时和运行时/
