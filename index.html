@@ -124,7 +124,7 @@
 <p><code>javap -v  TestAnnotation.class &gt; test.txt</code></p>
 <p>打开生成的test.txt，文件有点长，找到<strong>RuntimeVisibleAnnotations</strong> 属性，每个使用注解的类都有此属性，此属性会在jvm加载字节码的时候被加入到Class对象中。所以才可通过<code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法来获取到注解的内容。</p>
 <p><code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法我们debug进去看看，</p>
-<p><img src="/2018/08/27/JAVA注解剖析/C:/Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析\debug.PNG" alt="C:\Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析"></p>
+<p><img src="/2018/08/27/JAVA注解剖析/debug.PNG" alt="debug"></p>
 <p>没错这个获取到的注解对象是个动态代理生成的代理对象来的。再用 <code>clz.getDeclaredAnnotation(Foo.class).getClass().getInterfaces()</code>这个方法看看这个对象实现的接口是<code>interface com.example.demo.annocation.Foo</code>。最后值得一提的是，RuntimeVisibleAnnotations属性是在动态代理生成这个对象的时候设置到这个代理对象中的。</p>
 
       
