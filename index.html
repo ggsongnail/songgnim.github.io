@@ -85,6 +85,71 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-JAVA注解剖析" class="post-JAVA注解剖析 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/08/27/JAVA注解剖析/">JAVA注解剖析</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/27/JAVA注解剖析/" data-id="cjlce94o700006ov2286bsiki" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>创建一个作用类的注解@Target(ElementType.<span style="color:red">TYPE</span>)</strong></p>
+<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Foo &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> "FOO"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>创建一个作用于类方法的注解@Target(ElementType.<span style="color:red">METHOD</span>)</strong></p>
+<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FooMethod &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>上面就生成了两个注解，我们来使用它们</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Foo</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnnotation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException </span>&#123;</span><br><span class="line">        Class&lt;?&gt; clz = TestAnnotation.class;</span><br><span class="line">        <span class="comment">//获取注解的value</span></span><br><span class="line">        System.out.println(clz.getDeclaredAnnotation(Foo.class).value());</span><br><span class="line">        System.out.println(clz.getDeclaredMethod(<span class="string">"foo"</span>,<span class="keyword">null</span>)</span><br><span class="line">                           .getDeclaredAnnotation(FooMethod.class).value());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@FooMethod</span>(<span class="string">"foo"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<blockquote>
+<p>FOO<br>foo</p>
+</blockquote>
+<p><strong>底层原理：</strong></p>
+<p>注解在编译时，编译器会将注解的内容附加到使用的类的class结构中，因为class文件结构在jvm规范中是严格有序的格式，只有class的attributes属性才能添加注解信息。所以编译器会把上面TestAnnotation的@Foo注解放在类属性里、@FooMethod(“foo”)放在方法属性里。从上面获取value的方法便可看出。</p>
+<p>我们再来用下面的命令查看下编译器生成的TestAnnotation.class文件</p>
+<p><code>javap -v  TestAnnotation.class &gt; test.txt</code></p>
+<p>打开生成的test.txt，文件有点长，找到<strong>RuntimeVisibleAnnotations</strong> 属性，每个使用注解的类都有此属性，此属性会在jvm加载字节码的时候被加入到Class对象中。所以才可通过<code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法来获取到注解的内容。</p>
+<p><code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法我们debug进去看看，</p>
+<p><img src="/2018/08/27/JAVA注解剖析/C:/Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析\debug.PNG" alt="C:\Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析"></p>
+<p>没错这个获取到的注解对象是个动态代理生成的代理对象来的。再用 <code>clz.getDeclaredAnnotation(Foo.class).getClass().getInterfaces()</code>这个方法看看这个对象实现的接口是<code>interface com.example.demo.annocation.Foo</code>。最后值得一提的是，RuntimeVisibleAnnotations属性是在动态代理生成这个对象的时候设置到这个代理对象中的。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/27/JAVA注解剖析/">
+    <time datetime="2018-08-27T11:50:14.000Z" class="entry-date">
+        2018-08-27
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-JDk动态代理源码解析" class="post-JDk动态代理源码解析 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -100,7 +165,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/" data-id="cjlaz32z00004zsv2r4ydfp39" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/" data-id="cjlce94o700046ov2bgbzxj43" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -155,7 +220,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/JVM探秘/" data-id="cjlaz32z00003zsv2en9auesl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/JVM探秘/" data-id="cjlce94o700056ov2hbgogv2o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -197,7 +262,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/JDK-动态代理例子/" data-id="cjlaz32yu0000zsv23ej1kk3t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/JDK-动态代理例子/" data-id="cjlce94o700036ov2n72imazk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -277,7 +342,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/" data-id="cjlaz32yx0001zsv2i2txkwig" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/" data-id="cjlce94o700016ov2k8fjyohg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -344,7 +409,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/hello-world/" data-id="cjlaz32z4000azsv2kstw9s9j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/25/hello-world/" data-id="cjlce94o7000c6ov2zsgbear6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -398,7 +463,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/07/20/Java编译时和运行时/" data-id="cjlaz32z30008zsv24xkfgzns" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/07/20/Java编译时和运行时/" data-id="cjlce94o700086ov2uejed6oh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -441,7 +506,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/07/19/Spring-AOP/" data-id="cjlaz32z10005zsv28r03j3eb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/07/19/Spring-AOP/" data-id="cjlce94o7000a6ov20l1nvtuy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -525,7 +590,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Mysql/" data-id="cjlaz32zb000hzsv27wp6608k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Mysql/" data-id="cjlce94on000i6ov2goq371s0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -567,7 +632,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Redis/" data-id="cjlaz32ze000kzsv2dhvc2dpv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Redis/" data-id="cjlce94on000k6ov268vvdeki" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -610,58 +675,6 @@
 
 
   
-    <article id="post-安装Nodejs" class="post-安装Nodejs post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/06/23/安装Nodejs/">安装Nodejs</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Nodejs/" data-id="cjlaz32zc000jzsv26qh3yf47" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="1-下载nodejs并安装"><a href="#1-下载nodejs并安装" class="headerlink" title="1.下载nodejs并安装"></a>1.下载nodejs并安装</h3><h3 id="2-设置全局路径"><a href="#2-设置全局路径" class="headerlink" title="2.设置全局路径"></a>2.设置全局路径</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set prefix  "E:\nodejs"</span><br></pre></td></tr></table></figure>
-<p>这样下次用npm install -g 全局安装时会把包安装到此目录下</p>
-<h3 id="3-查看设置是否生效"><a href="#3-查看设置是否生效" class="headerlink" title="3.查看设置是否生效"></a>3.查看设置是否生效</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get prefix</span><br></pre></td></tr></table></figure>
-<h3 id="4-安装taobao-NPM镜像"><a href="#4-安装taobao-NPM镜像" class="headerlink" title="4.安装taobao NPM镜像"></a>4.安装taobao NPM镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>因为第2步已把全局路径改成了”E:\nodejs”，所以cnpm会被安装到这个路径下</p>
-<h3 id="5-配置cnpm环境变量"><a href="#5-配置cnpm环境变量" class="headerlink" title="5.配置cnpm环境变量"></a>5.配置cnpm环境变量</h3><p>将”E:\nodejs”配置到windows的环境变量中</p>
-<h3 id="6-安装成功"><a href="#6-安装成功" class="headerlink" title="6.安装成功"></a>6.安装成功</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;cnpm -version</span><br><span class="line">cnpm@6.0.0 (E:\nodejs\node_modules\cnpm\lib\parse_argv.js)</span><br><span class="line">npm@6.1.0 (E:\nodejs\node_modules\cnpm\node_modules\npm\lib\npm.js)</span><br><span class="line">node@8.11.2 (C:\Program Files\nodejs\node.exe)</span><br><span class="line">npminstall@3.6.2 (E:\nodejs\node_modules\cnpm\node_modules\npminstall\lib\index.js)</span><br><span class="line">prefix=E:\nodejs</span><br><span class="line">win32 x64 10.0.14393</span><br><span class="line">registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2018/06/23/安装Nodejs/">
-    <time datetime="2018-06-23T03:38:56.000Z" class="entry-date">
-        2018-06-23
-    </time>
-</a>
-    
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -691,6 +704,10 @@
       <ul>
         
           <li>
+            <a href="/2018/08/27/JAVA注解剖析/">JAVA注解剖析</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/26/JDk动态代理源码解析/">JDk动态代理源码解析</a>
           </li>
         
@@ -706,10 +723,6 @@
             <a href="/2018/08/25/CentOS7安装Docker-CE/">CentOS7安装Docker CE</a>
           </li>
         
-          <li>
-            <a href="/2018/08/25/hello-world/">Hello World</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -719,7 +732,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 

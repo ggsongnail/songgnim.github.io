@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="创建一个作用类的注解@Target(ElementType.TYPE)
+并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)
+12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)publ" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>JAVA注解剖析 | Hello-果果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA注解剖析">
+<meta property="og:url" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/index.html">
+<meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/C:/Users/ggson/Documents/Hexo/source/_posts/JAVA注解剖析/debug.PNG">
+<meta property="og:updated_time" content="2018-08-27T14:43:51.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA注解剖析">
+<meta name="twitter:description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+<meta name="twitter:image" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/C:/Users/ggson/Documents/Hexo/source/_posts/JAVA注解剖析/debug.PNG">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+
+  <script>
+(function(){
+		var canonicalURL, curProtocol;
+		//Get the <link> tag
+		var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+		//Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+	    //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+    	!function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+  
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hello-果果" rel="home">Hello-果果</a>
+      </h1>
+      
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+        <h2 class="site-description" id="hitokoto"></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-JAVA注解剖析" class="post-JAVA注解剖析 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      JAVA注解剖析
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/27/JAVA注解剖析/" data-id="cjlce94o700006ov2286bsiki" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>创建一个作用类的注解@Target(ElementType.<span style="color:red">TYPE</span>)</strong></p>
+<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Foo &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> "FOO"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>创建一个作用于类方法的注解@Target(ElementType.<span style="color:red">METHOD</span>)</strong></p>
+<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FooMethod &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>上面就生成了两个注解，我们来使用它们</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Foo</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnnotation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException </span>&#123;</span><br><span class="line">        Class&lt;?&gt; clz = TestAnnotation.class;</span><br><span class="line">        <span class="comment">//获取注解的value</span></span><br><span class="line">        System.out.println(clz.getDeclaredAnnotation(Foo.class).value());</span><br><span class="line">        System.out.println(clz.getDeclaredMethod(<span class="string">"foo"</span>,<span class="keyword">null</span>)</span><br><span class="line">                           .getDeclaredAnnotation(FooMethod.class).value());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@FooMethod</span>(<span class="string">"foo"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<blockquote>
+<p>FOO<br>foo</p>
+</blockquote>
+<p><strong>底层原理：</strong></p>
+<p>注解在编译时，编译器会将注解的内容附加到使用的类的class结构中，因为class文件结构在jvm规范中是严格有序的格式，只有class的attributes属性才能添加注解信息。所以编译器会把上面TestAnnotation的@Foo注解放在类属性里、@FooMethod(“foo”)放在方法属性里。从上面获取value的方法便可看出。</p>
+<p>我们再来用下面的命令查看下编译器生成的TestAnnotation.class文件</p>
+<p><code>javap -v  TestAnnotation.class &gt; test.txt</code></p>
+<p>打开生成的test.txt，文件有点长，找到<strong>RuntimeVisibleAnnotations</strong> 属性，每个使用注解的类都有此属性，此属性会在jvm加载字节码的时候被加入到Class对象中。所以才可通过<code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法来获取到注解的内容。</p>
+<p><code>clz.getDeclaredAnnotation(Foo.class)</code>这个方法我们debug进去看看，</p>
+<p><img src="/2018/08/27/JAVA注解剖析/C:/Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析\debug.PNG" alt="C:\Users\ggson\Documents\Hexo\source\_posts\JAVA注解剖析"></p>
+<p>没错这个获取到的注解对象是个动态代理生成的代理对象来的。再用 <code>clz.getDeclaredAnnotation(Foo.class).getClass().getInterfaces()</code>这个方法看看这个对象实现的接口是<code>interface com.example.demo.annocation.Foo</code>。最后值得一提的是，RuntimeVisibleAnnotations属性是在动态代理生成这个对象的时候设置到这个代理对象中的。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/27/JAVA注解剖析/">
+    <time datetime="2018-08-27T11:50:14.000Z" class="entry-date">
+        2018-08-27
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2018/08/26/JDk动态代理源码解析/" rel="next">JDk动态代理源码解析 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/27/JAVA注解剖析/">JAVA注解剖析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/26/JDk动态代理源码解析/">JDk动态代理源码解析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/JDK-动态代理例子/">JDK 动态代理例子</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/CentOS7安装Docker-CE/">CentOS7安装Docker CE</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 20px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 songnail
+    All rights reserved.</p>
+    <p>Powered by <a href="https//gg.songnail.com" target="_blank">Super果果</a></p>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
