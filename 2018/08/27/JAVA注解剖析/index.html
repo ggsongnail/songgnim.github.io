@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="创建一个作用类的注解@Target(ElementType.TYPE)
-并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)
-12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)publ" />
+  <meta name="description" content="创建一个作用类的注解
+12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default &#34;FOO&#34;;&amp;#125;
+
+@Targ" />
   
 
   
@@ -17,19 +18,19 @@
   
   <title>JAVA注解剖析 | Hello-果果</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+  <meta name="description" content="创建一个作用类的注解 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default &quot;FOO&quot;;&amp;#125;  @Target(ElementType.TYPE)表示作用于类 并且保留至运行期间@Retention(Ret">
 <meta name="keywords" content="JAVA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA注解剖析">
 <meta property="og:url" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/index.html">
 <meta property="og:site_name" content="Hello-果果">
-<meta property="og:description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+<meta property="og:description" content="创建一个作用类的注解 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default &quot;FOO&quot;;&amp;#125;  @Target(ElementType.TYPE)表示作用于类 并且保留至运行期间@Retention(Ret">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/debug.PNG">
-<meta property="og:updated_time" content="2018-08-27T14:50:46.741Z">
+<meta property="og:updated_time" content="2018-08-28T12:59:07.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA注解剖析">
-<meta name="twitter:description" content="创建一个作用类的注解@Target(ElementType.TYPE) 并且保留至运行期间@Retention(RetentionPolicy.RUNTIME) 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default">
+<meta name="twitter:description" content="创建一个作用类的注解 12345@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)public @interface Foo &amp;#123;    String value() default &quot;FOO&quot;;&amp;#125;  @Target(ElementType.TYPE)表示作用于类 并且保留至运行期间@Retention(Ret">
 <meta name="twitter:image" content="https://www.songnail.com/2018/08/27/JAVA注解剖析/debug.PNG">
   
   
@@ -109,18 +110,24 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/27/JAVA注解剖析/" data-id="cjlce94o700006ov2286bsiki" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/27/JAVA注解剖析/" data-id="cjldpxeaw0000k8v2pfc3zgky" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p><strong>创建一个作用类的注解@Target(ElementType.<span style="color:red">TYPE</span>)</strong></p>
-<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+        <p><strong>创建一个作用类的注解</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Foo &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> "FOO"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>创建一个作用于类方法的注解@Target(ElementType.<span style="color:red">METHOD</span>)</strong></p>
+<blockquote>
+<p><strong>@Target(ElementType.<span style="color:red">TYPE</span>)</strong>表示作用于类</p>
 <p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+</blockquote>
+<p><strong>创建一个作用于类方法的注解</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FooMethod &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>@Target(ElementType.<span style="color:red">METHOD</span>)</strong>表示作用于方法</p>
+<p><strong>并且保留至运行期间@Retention(RetentionPolicy.RUNTIME)</strong></p>
+</blockquote>
 <p><strong>上面就生成了两个注解，我们来使用它们</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Foo</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnnotation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException </span>&#123;</span><br><span class="line">        Class&lt;?&gt; clz = TestAnnotation.class;</span><br><span class="line">        <span class="comment">//获取注解的value</span></span><br><span class="line">        System.out.println(clz.getDeclaredAnnotation(Foo.class).value());</span><br><span class="line">        System.out.println(clz.getDeclaredMethod(<span class="string">"foo"</span>,<span class="keyword">null</span>)</span><br><span class="line">                           .getDeclaredAnnotation(FooMethod.class).value());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@FooMethod</span>(<span class="string">"foo"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>输出结果：</strong></p>
@@ -158,6 +165,8 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
+        <span class="nav-previous"><a href="/2018/08/27/菜鸡学鹰语/" rel="prev"><span class="meta-nav">←</span> 菜鸡学鹰语</a></span>
+    
     
         <span class="nav-next"><a href="/2018/08/26/JDk动态代理源码解析/" rel="next">JDk动态代理源码解析 <span class="meta-nav">→</span></a></span>
     
@@ -190,6 +199,10 @@
       <ul>
         
           <li>
+            <a href="/2018/08/27/菜鸡学鹰语/">菜鸡学鹰语</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/27/JAVA注解剖析/">JAVA注解剖析</a>
           </li>
         
@@ -205,10 +218,6 @@
             <a href="/2018/08/25/JDK-动态代理例子/">JDK 动态代理例子</a>
           </li>
         
-          <li>
-            <a href="/2018/08/25/CentOS7安装Docker-CE/">CentOS7安装Docker CE</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -218,7 +227,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -227,7 +236,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 20px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 20px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
     </div>
   </aside>
 
