@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="对于JAVA的OOM（OutOfMemory）大家并不陌生，为了避免它，JAVA提供了强引用、软引用、软引用这三个引用类型来针对避免OOM时所采取相应的回收策略
+强引用强引用一般用的最多，例如
+12Car car = new Car();String name = &#34;Jony&#34;；
+这类型的引用，只要" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>JAVA强引用和弱引用以及软引用 | Hello-果果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于JAVA的OOM（OutOfMemory）大家并不陌生，为了避免它，JAVA提供了强引用、软引用、软引用这三个引用类型来针对避免OOM时所采取相应的回收策略 强引用强引用一般用的最多，例如 12Car car = new Car();String name = &quot;Jony&quot;； 这类型的引用，只要car、name的引用变量不被set null时，jvm都不会回收这样的对象 弱引用弱引用用于那些非">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA强引用和弱引用以及软引用">
+<meta property="og:url" content="https://www.songnail.com/2018/08/29/JAVA强引用和弱引用以及软引用/index.html">
+<meta property="og:site_name" content="Hello-果果">
+<meta property="og:description" content="对于JAVA的OOM（OutOfMemory）大家并不陌生，为了避免它，JAVA提供了强引用、软引用、软引用这三个引用类型来针对避免OOM时所采取相应的回收策略 强引用强引用一般用的最多，例如 12Car car = new Car();String name = &quot;Jony&quot;； 这类型的引用，只要car、name的引用变量不被set null时，jvm都不会回收这样的对象 弱引用弱引用用于那些非">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-29T13:45:19.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA强引用和弱引用以及软引用">
+<meta name="twitter:description" content="对于JAVA的OOM（OutOfMemory）大家并不陌生，为了避免它，JAVA提供了强引用、软引用、软引用这三个引用类型来针对避免OOM时所采取相应的回收策略 强引用强引用一般用的最多，例如 12Car car = new Car();String name = &quot;Jony&quot;； 这类型的引用，只要car、name的引用变量不被set null时，jvm都不会回收这样的对象 弱引用弱引用用于那些非">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+
+  <script>
+(function(){
+		var canonicalURL, curProtocol;
+		//Get the <link> tag
+		var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+		//Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+	    //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+    	!function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+</script>
+  
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Hello-果果" rel="home">Hello-果果</a>
+      </h1>
+      
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+        <h2 class="site-description" id="hitokoto"></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-JAVA强引用和弱引用以及软引用" class="post-JAVA强引用和弱引用以及软引用 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      JAVA强引用和弱引用以及软引用
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/29/JAVA强引用和弱引用以及软引用/" data-id="cjlf9g0wc00005cv2p6bmb6od" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>对于JAVA的OOM（OutOfMemory）大家并不陌生，为了避免它，JAVA提供了强引用、软引用、软引用这三个引用类型来针对避免OOM时所采取相应的回收策略</p>
+<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>强引用一般用的最多，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Car car = <span class="keyword">new</span> Car();</span><br><span class="line">String name = <span class="string">"Jony"</span>；</span><br></pre></td></tr></table></figure>
+<p>这类型的引用，只要car、name的引用变量不被set null时，jvm都不会回收这样的对象</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>弱引用用于那些非必须对象，不管内存充不充足，JVM进行垃圾回收时都会回收弱引用引用的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestWeakReference</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Car car = <span class="keyword">new</span> Car();</span><br><span class="line">        car.setName(<span class="string">"凯迪拉克"</span>);</span><br><span class="line">        WeakReference&lt;Car&gt; weakReference = <span class="keyword">new</span> WeakReference(<span class="keyword">new</span> Car());</span><br><span class="line">        System.out.println(<span class="string">"强引用："</span>+car);</span><br><span class="line">        System.out.println(<span class="string">"弱引用："</span>+weakReference.get());</span><br><span class="line">        System.gc();</span><br><span class="line">        System.out.println(<span class="string">"JVM回收后强引用："</span>+car);</span><br><span class="line">        System.out.println(<span class="string">"JVM回收后弱引用："</span>+weakReference.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出</p>
+<p>强引用：com.example.demo.entry.Car@3cd1a2f1<br>弱引用：com.example.demo.entry.Car@2f0e140b<br>JVM回收后强引用：com.example.demo.entry.Car@3cd1a2f1<br>JVM回收后弱引用：null</p>
+</blockquote>
+<p>但是看看下面这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class TestWeakReference &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Car car = new Car();</span><br><span class="line">        car.setName(&quot;凯迪拉克&quot;);</span><br><span class="line">        //WeakReference&lt;Car&gt; weakReference = new WeakReference(new Car());</span><br><span class="line">        WeakReference&lt;Car&gt; weakReference = new WeakReference(car);</span><br><span class="line">        System.out.println(&quot;强引用：&quot;+car);</span><br><span class="line">        System.out.println(&quot;弱引用：&quot;+weakReference.get());</span><br><span class="line">        System.gc();</span><br><span class="line">        System.out.println(&quot;JVM回收后强引用：&quot;+car);</span><br><span class="line">        System.out.println(&quot;JVM回收后弱引用：&quot;+weakReference.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出</p>
+<p>强引用：com.example.demo.entry.Car@3cd1a2f1<br>弱引用：com.example.demo.entry.Car@3cd1a2f1<br>JVM回收后强引用：com.example.demo.entry.Car@3cd1a2f1<br>JVM回收后弱引用：com.example.demo.entry.Car@3cd1a2f1</p>
+</blockquote>
+<p>JVM垃圾回收后，弱引用所引用的对象因为是一个Car对象的强引用，所以不会被回收</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>这种类型的引用最大的特点就是，只有当内存不足的时候，JVM垃圾回收才会回收该对象，并且常与引用队列(ReferenceQueue)来使用，当软引用对象被回收时，软引用变量会被记录到ReferenceQueue中</p>
+<p>为了实现JVM内存不足我们用下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">simulateOOME</span><span class="params">()</span> </span>&#123; <span class="comment">//模拟OOME</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">final</span> ArrayList&lt;Object[]&gt; allocations = <span class="keyword">new</span> ArrayList&lt;Object[]&gt;();</span><br><span class="line">            <span class="keyword">int</span> size;</span><br><span class="line">            <span class="keyword">while</span> ((size = Math.min(Math.abs((<span class="keyword">int</span>) getRuntime().freeMemory()), Integer.MAX_VALUE))&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                allocations.add(<span class="keyword">new</span> Object[size]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (OutOfMemoryError e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       ReferenceQueue referenceQueue = <span class="keyword">new</span> ReferenceQueue();</span><br><span class="line">       Car car = <span class="keyword">new</span> Car(); <span class="comment">//强引用</span></span><br><span class="line">       car.setName(<span class="string">"凯迪拉克"</span>);</span><br><span class="line">       car.setType(<span class="number">1</span>);</span><br><span class="line">       SoftReference&lt;Car&gt; softReference = <span class="keyword">new</span> SoftReference&lt;&gt;(car,referenceQueue);<span class="comment">//软引用</span></span><br><span class="line">       System.out.println(softReference.get().getName());</span><br><span class="line">       car = <span class="keyword">null</span>;</span><br><span class="line">       System.out.println(softReference.get().getName());</span><br><span class="line">       System.out.println(referenceQueue.poll());</span><br><span class="line">       simulateOOME(); <span class="comment">//模拟oome</span></span><br><span class="line">       System.out.println(softReference.get()); <span class="comment">//软引用的对象会在oome之前被回收</span></span><br><span class="line">       System.out.println(referenceQueue.poll()); <span class="comment">//回收对象的同时软引用会被记录在referenceQueue里</span></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/29/JAVA强引用和弱引用以及软引用/">
+    <time datetime="2018-08-29T13:09:32.000Z" class="entry-date">
+        2018-08-29
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2018/08/27/菜鸡学鹰语/" rel="next">菜鸡学鹰语 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/29/JAVA强引用和弱引用以及软引用/">JAVA强引用和弱引用以及软引用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/27/菜鸡学鹰语/">菜鸡学鹰语</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/27/JAVA注解剖析/">JAVA注解剖析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/26/JDk动态代理源码解析/">JDk动态代理源码解析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JAVA/" style="font-size: 20px;">JAVA</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 songnail
+    All rights reserved.</p>
+    <p>Powered by <a href="https//gg.songnail.com" target="_blank">Super果果</a></p>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

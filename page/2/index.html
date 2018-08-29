@@ -100,7 +100,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Redis/" data-id="cjldpxebr000mk8v2b4j1vpdh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Redis/" data-id="cjlf9g0wu000k5cv27ll51i00" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -110,13 +110,13 @@
 <h3 id="一、下载安装Redis"><a href="#一、下载安装Redis" class="headerlink" title="一、下载安装Redis"></a>一、下载安装Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/download</span><br><span class="line">wget http://download.redis.io/releases/redis-4.0.9.tar.gz</span><br><span class="line">tar -zxvf redis-4.0.9.tar.gz -C /usr/local/redis</span><br><span class="line">cd /usr/local/redis</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 <h3 id="二、配置和初始化Redis"><a href="#二、配置和初始化Redis" class="headerlink" title="二、配置和初始化Redis"></a>二、配置和初始化Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis]# cd utils/</span><br><span class="line">[root@localhost utils]# ./install_server.sh </span><br><span class="line">Welcome to the redis service installer</span><br><span class="line">This script will help you easily set up a running redis server</span><br><span class="line"></span><br><span class="line">Please select the redis port for this instance: [6379] 3680</span><br><span class="line">Please select the redis config file name [/etc/redis/3680.conf] </span><br><span class="line">Selected default - /etc/redis/3680.conf</span><br><span class="line">Please select the redis log file name [/var/log/redis_3680.log] </span><br><span class="line">Selected default - /var/log/redis_3680.log</span><br><span class="line">Please select the data directory for this instance [/var/lib/redis/3680] </span><br><span class="line">Selected default - /var/lib/redis/3680</span><br><span class="line">Please select the redis executable path [/usr/bin/redis-server] </span><br><span class="line">Selected config:</span><br><span class="line">Port           : 3680</span><br><span class="line">Config file    : /etc/redis/3680.conf</span><br><span class="line">Log file       : /var/log/redis_3680.log</span><br><span class="line">Data dir       : /var/lib/redis/3680</span><br><span class="line">Executable     : /usr/bin/redis-server</span><br><span class="line">Cli Executable : /usr/bin/redis-cli</span><br><span class="line">Is this ok? Then press ENTER to go on or Ctrl-C to abort.</span><br><span class="line">Copied /tmp/3680.conf =&gt; /etc/init.d/redis_3680</span><br><span class="line">Installing service...</span><br><span class="line">Successfully added to chkconfig!</span><br><span class="line">Successfully added to runlevels 345!</span><br><span class="line">Starting Redis server...</span><br><span class="line">Installation successful!</span><br></pre></td></tr></table></figure>
 <h3 id="三、设置密码"><a href="#三、设置密码" class="headerlink" title="三、设置密码"></a>三、设置密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost utils]# vi /etc/redis/3680.conf</span><br><span class="line">requirepass ggsongnail</span><br><span class="line">bind 127.0.0.1 或者 bind 0.0.0.0</span><br></pre></td></tr></table></figure>
-<h3 id="四、常规启动"><a href="#四、常规启动" class="headerlink" title="四、常规启动"></a>四、常规启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ln /usr/<span class="built_in">local</span>/redis/src/redis-cli /usr/bin/redis-cli</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ln /etc/init.d/redis_3680 /usr/bin/redis-server</span></span><br></pre></td></tr></table></figure>
+<h3 id="四、常规启动"><a href="#四、常规启动" class="headerlink" title="四、常规启动"></a>四、常规启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln /usr/local/redis/src/redis-cli /usr/bin/redis-cli</span><br><span class="line"><span class="meta">$</span> ln /etc/init.d/redis_3680 /usr/bin/redis-server</span><br></pre></td></tr></table></figure>
 <h3 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h3><ul>
 <li><p>/bin/sh: cc: command not found﻿</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决方法 安装gcc：</span><br><span class="line">yum install -y gcc</span><br><span class="line">查看gcc是否安装成功：</span><br><span class="line">rpm -qa|grep gcc</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>[root@localhost utils]# redis-server stop<br>Stopping …<br>(error) NOAUTH Authentication required.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">解决方法 修改/etc/init.d/redis_3680</span><br><span class="line">增加</span><br><span class="line"><span class="meta">$</span><span class="bash">CLIEXEC -a <span class="string">"ggsongnail"</span> -p <span class="variable">$REDISPORT</span> shutdown</span></span><br><span class="line">如下所示</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Configurations injected by install_server below....</span></span><br><span class="line">EXEC=/usr/bin/redis-server</span><br><span class="line">CLIEXEC=/usr/bin/redis-cli</span><br><span class="line">PIDFILE=/var/run/redis_3680.pid</span><br><span class="line">CONF="/etc/redis/3680.conf"</span><br><span class="line">REDISPORT="3680"</span><br><span class="line"><span class="meta">$</span><span class="bash">CLIEXEC -a <span class="string">"ggsongnail"</span> -p <span class="variable">$REDISPORT</span> shutdown</span></span><br><span class="line"></span><br><span class="line">然后再次执行</span><br><span class="line">[root@localhost utils]# redis-server stop</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Stopping ...</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Redis stopped</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">解决方法 修改/etc/init.d/redis_3680</span><br><span class="line">增加</span><br><span class="line"><span class="meta">$</span>CLIEXEC -a "ggsongnail" -p $REDISPORT shutdown</span><br><span class="line">如下所示</span><br><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"><span class="meta">#</span>Configurations injected by install_server below....</span><br><span class="line">EXEC=/usr/bin/redis-server</span><br><span class="line">CLIEXEC=/usr/bin/redis-cli</span><br><span class="line">PIDFILE=/var/run/redis_3680.pid</span><br><span class="line">CONF="/etc/redis/3680.conf"</span><br><span class="line">REDISPORT="3680"</span><br><span class="line"><span class="meta">$</span>CLIEXEC -a "ggsongnail" -p $REDISPORT shutdown</span><br><span class="line"></span><br><span class="line">然后再次执行</span><br><span class="line">[root@localhost utils]# redis-server stop</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Stopping ...</span><br><span class="line">Could not connect to Redis at 127.0.0.1:3680: Connection refused</span><br><span class="line">Redis stopped</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -143,6 +143,48 @@
 
 
   
+    <article id="post-安装Mysql" class="post-安装Mysql post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/06/23/安装Mysql/">安装Mysql</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Mysql/" data-id="cjlf9g0wq000d5cv27sgdvp84" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/06/23/安装Mysql/">
+    <time datetime="2018-06-23T07:08:44.000Z" class="entry-date">
+        2018-06-23
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-安装Nodejs" class="post-安装Nodejs post type-post status-publish format-standard hentry">
     <!---->
 
@@ -158,7 +200,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Nodejs/" data-id="cjldpxebc000gk8v2moxqitxa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/23/安装Nodejs/" data-id="cjlf9g0wt000i5cv25aexdl6q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -210,7 +252,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/03/如何在github上写博客/" data-id="cjldpxebc000ik8v2hjreowuv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/06/03/如何在github上写博客/" data-id="cjlf9g0wp000a5cv2351byacb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -238,7 +280,7 @@
 <p>默认按enter，将会把 public/private key生成到默认的路径C:\Users\Administrator\.ssh</p>
 <p>继续按enter，默认不用密码</p>
 </li>
-<li><h5 id="d-把SSH-key添加到-ssh-agent"><a href="#d-把SSH-key添加到-ssh-agent" class="headerlink" title="d.把SSH key添加到 ssh-agent"></a>d.把SSH key添加到 ssh-agent</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> start the ssh-agent <span class="keyword">in</span> the background</span></span><br><span class="line">eval $(ssh-agent -s)</span><br><span class="line">Agent pid 59566</span><br></pre></td></tr></table></figure>
+<li><h5 id="d-把SSH-key添加到-ssh-agent"><a href="#d-把SSH-key添加到-ssh-agent" class="headerlink" title="d.把SSH key添加到 ssh-agent"></a>d.把SSH key添加到 ssh-agent</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> start the ssh-agent in the background</span><br><span class="line">eval $(ssh-agent -s)</span><br><span class="line">Agent pid 59566</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
 </li>
 <li><h5 id="e-把SSH-key添加到-GitHub-account"><a href="#e-把SSH-key添加到-GitHub-account" class="headerlink" title="e. 把SSH key添加到 GitHub account"></a>e. <a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/" target="_blank" rel="noopener">把SSH key添加到 GitHub account</a></h5></li>
@@ -309,6 +351,10 @@
       <ul>
         
           <li>
+            <a href="/2018/08/29/JAVA强引用和弱引用以及软引用/">JAVA强引用和弱引用以及软引用</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/27/菜鸡学鹰语/">菜鸡学鹰语</a>
           </li>
         
@@ -324,10 +370,6 @@
             <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
           </li>
         
-          <li>
-            <a href="/2018/08/25/JDK-动态代理例子/">JDK 动态代理例子</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -337,7 +379,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 

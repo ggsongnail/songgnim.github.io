@@ -1,3 +1,4 @@
+https://www.songnail.com/2018/08/29/JAVA强引用和弱引用以及软引用/
 https://www.songnail.com/2018/08/27/菜鸡学鹰语/
 https://www.songnail.com/2018/08/27/JAVA注解剖析/
 https://www.songnail.com/2018/08/26/JDk动态代理源码解析/
@@ -7,7 +8,7 @@ https://www.songnail.com/2018/08/25/CentOS7安装Docker-CE/
 https://www.songnail.com/2018/08/25/hello-world/
 https://www.songnail.com/2018/07/20/Java编译时和运行时/
 https://www.songnail.com/2018/07/19/Spring-AOP/
-https://www.songnail.com/2018/06/23/安装Mysql/
 https://www.songnail.com/2018/06/23/安装Redis/
+https://www.songnail.com/2018/06/23/安装Mysql/
 https://www.songnail.com/2018/06/23/安装Nodejs/
 https://www.songnail.com/2018/06/03/如何在github上写博客/

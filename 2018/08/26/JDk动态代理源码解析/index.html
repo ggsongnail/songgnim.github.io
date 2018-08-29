@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样
-1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class." />
+  <meta name="description" content="如果你很好奇JDK动态代理如何生成代理类的，请跟我走一遍吧。
+平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样
+1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass =" />
   
 
   
@@ -16,18 +17,18 @@
   
   <title>JDk动态代理源码解析 | Hello-果果</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
+  <meta name="description" content="如果你很好奇JDK动态代理如何生成代理类的，请跟我走一遍吧。 平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), F">
 <meta name="keywords" content="JAVA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDk动态代理源码解析">
 <meta property="og:url" content="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/index.html">
 <meta property="og:site_name" content="Hello-果果">
-<meta property="og:description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
+<meta property="og:description" content="如果你很好奇JDK动态代理如何生成代理类的，请跟我走一遍吧。 平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), F">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-26T14:51:51.259Z">
+<meta property="og:updated_time" content="2018-08-29T14:53:05.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDk动态代理源码解析">
-<meta name="twitter:description" content="平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);Foo f = (Foo) proxyCl">
+<meta name="twitter:description" content="如果你很好奇JDK动态代理如何生成代理类的，请跟我走一遍吧。 平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样 1234InvocationHandler handler = new MyInvocationHandler(...);Class&amp;lt;?&amp;gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), F">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -106,21 +107,30 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/" data-id="cjldpxebc0003k8v22mlvx2al" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://www.songnail.com/2018/08/26/JDk动态代理源码解析/" data-id="cjlf9g0wg00015cv2jl5kd2vz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样</p>
+        <p>如果你很好奇JDK动态代理如何生成代理类的，请跟我走一遍吧。</p>
+<p>平时我们如果要为某个接口(下面的Foo)创建代理我们可以这样</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler(...);</span><br><span class="line">Class&lt;?&gt; proxyClass = Proxy.getProxyClass(Foo.class.getClassLoader(), Foo.class);</span><br><span class="line">Foo f = (Foo) proxyClass.getConstructor(InvocationHandler.class).</span><br><span class="line">                newInstance(handler);</span><br></pre></td></tr></table></figure>
 <p>或者更简单点</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Foo f = (Foo) Proxy.newProxyInstance(Foo.class.getClassLoader(),</span><br><span class="line">                                     <span class="keyword">new</span> Class&lt;?&gt;[] &#123; Foo.class &#125;,</span><br><span class="line">                                     handler);</span><br></pre></td></tr></table></figure>
-<p>动态代理类(proxyClass)实在运行期间被创建的，想了解其创建过程首先我们来看Proxy的newProxyInstance方法</p>
+<p>动态代理类(proxyClass)是在运行期间被创建的，想了解其创建过程首先我们来看Proxy的newProxyInstance方法</p>
 <p>我这里抽出这个方法关键的几个地方便于了解</p>
 <blockquote>
-<p>关键1：Class&lt;?&gt; cl = getProxyClass0(loader, intfs);</p>
-<p>这个方法是查找或者创建指定的代理类用的，这里的指定则是通过loader, intfs来决定的。</p>
+<p><strong>关键1：</strong><code>Class&lt;?&gt; cl = getProxyClass0(loader, intfs);</code></p>
+<p>这个方法是查找或者创建指定的代理类用的，这里的指定则是通过loader, intfs来决定的。这个方法里面主要用到了一个方法<code>proxyClassCache.get(loader, interfaces)；</code></p>
+<p>proxyClassCache我们来看下是个啥？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> WeakCache&lt;ClassLoader, Class&lt;?&gt;[], Class&lt;?&gt;&gt;</span><br><span class="line">&gt;     proxyClassCache = <span class="keyword">new</span> WeakCache&lt;&gt;(<span class="keyword">new</span> KeyFactory(), <span class="keyword">new</span> ProxyClassFactory());</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>看得出这个proxyClassCache是使用WeakCache的构造函数并传入KeyFactory和ProxyClassFactory对象参数的构造的对象 ，有点绕口，不知道干嘛用的咱也不理，先去看看proxyClassCache的get方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; final class WeakCache&lt;K, P, V&gt; &#123;</span><br><span class="line">&gt;     public V get(K key, P parameter)&#123;</span><br><span class="line">&gt; 		//这个方法其实可以字面翻译为‘擦除掉旧的Entrys’；进入可以看到里面有个CacheKey&lt;K&gt; 				//cacheKey对象，这个对象其实就是弱引用的实现，是一个classloader的弱引用。JVM在回收弱</span><br><span class="line">&gt; 		//引用对象时，顺便把这个弱引用变量记录到一个引用队列refQueue里，以这个作为key，将 			//ConcurrentMap&lt;Object, ConcurrentMap&lt;Object, Supplier&lt;V&gt;&gt;&gt; map中的value取出</span><br><span class="line">&gt; 		//再拿这个value 到ConcurrentMap&lt;Supplier&lt;V&gt;, Boolean&gt; reverseMap 作为key 删除</span><br><span class="line">&gt; 		//这个key对应的数据</span><br><span class="line">&gt; 		expungeStaleEntries();</span><br><span class="line">&gt; 		</span><br><span class="line">&gt; 		//结合引用队列创建代理接口的classloader的弱引用</span><br><span class="line">&gt; 		Object cacheKey = CacheKey.valueOf(key, refQueue);</span><br><span class="line">&gt; 		</span><br><span class="line">&gt; 		</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
 </blockquote>
 
       
@@ -179,6 +189,10 @@
       <ul>
         
           <li>
+            <a href="/2018/08/29/JAVA强引用和弱引用以及软引用/">JAVA强引用和弱引用以及软引用</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/27/菜鸡学鹰语/">菜鸡学鹰语</a>
           </li>
         
@@ -194,10 +208,6 @@
             <a href="/2018/08/25/JVM探秘/">JVM探秘</a>
           </li>
         
-          <li>
-            <a href="/2018/08/25/JDK-动态代理例子/">JDK 动态代理例子</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -207,7 +217,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
